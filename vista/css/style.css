@@ -6,15 +6,13 @@ body {
     background-color: #f4f4f4;
 }
 
-h1 {
+h1, h2 {
     color: #333;
     text-align: center;
 }
 
 .formulario {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
+
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-wrap: wrap;
@@ -64,7 +62,18 @@ input[type="text"]:focus, select:focus {
 
 .enviarBoton{
     width: 60%;
-    margin: auto;
     text-align: center;
-    background-color: white;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 0 0 5px;
+    margin: auto;
+    box-shadow: 0 0 10px rgba(0,0,0,1);
+}
+
+.errores{
+    color: darkred;
+    width: 60%;
+    text-align: center;
+    padding: 20px;
+    margin: auto;
 }

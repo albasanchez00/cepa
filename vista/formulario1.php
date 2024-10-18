@@ -28,11 +28,6 @@
             </div>
 
             <div>
-                <label for="dni">DNI:</label>
-                <input type="text" name="dni" id="dni" placeholder="ej: 000000000X">
-            </div>
-
-            <div>
                 <label for="telefono">Teléfono:</label>
                 <input type="text" name="telefono" id="telefono" placeholder="ej: 6XXXXXXXX">
             </div>
@@ -60,22 +55,18 @@
             </div>
 
             <div>
-                <label for="parentesco">Familiar de Contacto:</label>
-                <select name="parentesco" id="parentesco">
-                    <option></option>
-                    <?php
-                    $link=conectarBD(); //Ejecutas la funicon conectarBD().
-                    $consulta="SELECT * FROM parentesco"; //Se guarda en una variable consulta.
-                    $resultado=mysqli_query($link,$consulta); // Se ejecuta la consulta.
-
-                    while($fila=mysqli_fetch_array($resultado)){
-                        // Registro asociado a cada campo -> ej: $fila["idEstudios"]  /  $fila["nombreNivel"]
-                        echo "<option value='".$fila["idRelacion"]."'>".$fila["nombreRelacion"]."</option>";
-                    }
-                    ?>
-                </select>
+                <label for="dni">DNI:</label>
+                <input type="text" name="dni" id="dni" placeholder="ej: 000000000X">
             </div>
+
+            <div>
+                <label for="fNacimineto">Fecha Nacimiento:</label>
+                <input type="date" name="fNacimiento" id="fNacimineto" >
+            </div>
+
+
         </div>
+
         <div>
             <div class="formulario2">
                 <div>
@@ -109,12 +100,18 @@
                         ?>
                     </select>
                 </div>
-                <div>
-                    <input type="submit" name="enviarFormulario" value="↪ Siguiente" id="enviarFormulario" class="enviarBoton">
+                <div class="enviarBoton">
+                    <input type="submit" name="enviarFormulario" value="↪ Siguiente" id="enviarFormulario">
                 </div>
-
         </div>
 
+        <div class="errores">
+            <?php
+            if (!empty($_GET["errores"])){
+                echo $_GET["errores"];
+            }
+            ?>
+        </div>
 
     </form>
 </body>
