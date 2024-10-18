@@ -10,7 +10,7 @@
 </head>
 <body>
 <h1>Formulario de Alta Nuevo Alumno</h1>
-<h2>Datos de Persona Contacto</h2>
+<h2>Datos Persona de Contacto</h2>
     <form action="../controlador/controlador.php" method="post">
         <div class="formulario">
             <div>
@@ -39,6 +39,19 @@
                     ?>
                 </select>
             </div>
+
+            <div class="enviarBoton">
+                <input type="hidden" name="origen" value="formulario2">
+                <input type="submit" name="enviarFormulario" value="↪ Finalizar">
+            </div>
+        </div>
+
+        <div class="errores">
+            <?php
+            if (!empty($_GET["errores"])){
+                echo $_GET["errores"];
+            }
+            ?>
         </div>
     </form>
 
