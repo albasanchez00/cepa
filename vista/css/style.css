@@ -12,12 +12,28 @@ h1, h2 {
 }
 
 .formulario {
-
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
     display: flex;
+    width: 60%;
+    height: 500px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px 5px 0 0;
+}
+
+.dosColumas{
     flex-wrap: wrap;
     justify-content: space-between;
 }
+
+.unaColuma{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
 
 .formulario > div {
     flex-basis: 48%;
@@ -58,6 +74,10 @@ input[type="text"]:focus, select:focus {
     .formulario > div {
         flex-basis: 100%;
     }
+    .formulario, .enviarBoton{
+        width: 95%;
+        height: auto;
+    }
 }
 
 .enviarBoton{
@@ -74,6 +94,28 @@ input[type="text"]:focus, select:focus {
     color: darkred;
     width: 60%;
     text-align: center;
-    padding: 20px;
+    padding: 10px;
     margin: auto;
+}
+
+.centrado{
+    text-align: center;
+}
+
+.boton{
+    padding: 15px;
+    background-color: #0078D7;
+    color: #fff;
+    cursor: pointer;
+}
+
+.botonDesactivado{
+    padding: 15px;
+    background-color: #d2d2d2;
+    color: #000;
+    cursor: none;
+}
+
+.casillaBoton{
+    padding: 5px;
 }

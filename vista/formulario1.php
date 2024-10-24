@@ -7,11 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cepa</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/formulario1.js"></script>
 </head>
 <body>
     <h1>Formulario de Alta Nuevo Alumno</h1>
+    <h2>1️⃣→ Datos personales del Alumno</h2>
     <form action="../controlador/controlador.php" method="post">
-        <div class="formulario">
+        <input type="hidden" name="origen" value="formulario1">
+        <div class="formulario dosColumas">
             <div>
                 <label for="nombre">Nombre:</label>
                 <input type="text" name="nombre" id="nombre">
@@ -40,17 +43,17 @@
                 <label for="uEstudio">Último Estudio Cursado:</label>
                 <select name="uEstudio" id="uEstudio">
                     <option></option>
-                    <?php
-                    include("../modelo/conexion.php");//Invocamos el archivo que carga la BBDD.
-                    $link=conectarBD(); //Ejecutas la funicon conectarBD().
-                    $consulta="SELECT * FROM nivelestudios"; //Se guarda en una variable consulta.
-                    $resultado=mysqli_query($link,$consulta); // Se ejecuta la consulta.
-
-                    while($fila=mysqli_fetch_array($resultado)){
-                        // Registro asociado a cada campo -> ej: $fila["idEstudios"]  /  $fila["nombreNivel"]
-                        echo "<option value='".$fila["idEstudios"]."'>".$fila["nombreNivel"]."</option>";
-                    }
-                    ?>
+<!--                    --><?php
+//                    include("../modelo/conexion.php");//Invocamos el archivo que carga la BBDD.
+//                    $link=conectarBD(); //Ejecutas la funicon conectarBD().
+//                    $consulta="SELECT * FROM nivelestudios"; //Se guarda en una variable consulta.
+//                    $resultado=mysqli_query($link,$consulta); // Se ejecuta la consulta.
+//
+//                    while($fila=mysqli_fetch_array($resultado)){
+//                        // Registro asociado a cada campo -> ej: $fila["idEstudios"]  /  $fila["nombreNivel"]
+//                        echo "<option value='".$fila["idEstudios"]."'>".$fila["nombreNivel"]."</option>";
+//                    }
+//                    ?>
                 </select>
             </div>
 
@@ -60,15 +63,15 @@
             </div>
 
             <div>
-                <label for="fNacimineto">Fecha Nacimiento:</label>
-                <input type="date" name="fNacimiento" id="fNacimineto" >
+                <label for="fNacimiento">Fecha Nacimiento:</label>
+                <input type="date" name="fNacimiento" id="fNacimiento">
             </div>
 
 
         </div>
 
         <div>
-            <div class="formulario2">
+            <div class="formulario dosColumas">
                 <div>
                     <label for="direccion">Direccion:</label>
                     <input type="text" name="direccion" id="direccion" placeholder="ej: calle benito, 4">
@@ -88,30 +91,31 @@
                     <label for="provincia">Provincia:</label>
                     <select name="provincia" id="provincia">
                         <option></option>
-                        <?php
-                        $link=conectarBD(); //Ejecutas la funicon conectarBD().
-                        $consulta="SELECT * FROM provincia"; //Se guarda en una variable consulta.
-                        $resultado=mysqli_query($link,$consulta); // Se ejecuta la consulta.
-
-                        while($fila=mysqli_fetch_array($resultado)){
-                            // Registro asociado a cada campo -> ej: $fila["idEstudios"]  /     $fila["nombreNivel"]
-                            echo "<option value='".$fila["idProvincia"]."'>".$fila["nombreProvincia"]."</option>";
-                        }
+<!--                        --><?php
+//                        $link=conectarBD(); //Ejecutas la funicon conectarBD().
+//                        $consulta="SELECT * FROM provincia"; //Se guarda en una variable consulta.
+//                        $resultado=mysqli_query($link,$consulta); // Se ejecuta la consulta.
+//
+//                        while($fila=mysqli_fetch_array($resultado)){
+//                            // Registro asociado a cada campo -> ej: $fila["idEstudios"]  /     $fila["nombreNivel"]
+//                            echo "<option value='".$fila["idProvincia"]."'>".$fila["nombreProvincia"]."</option>";
+//                        }
                         ?>
                     </select>
                 </div>
                 <div class="enviarBoton">
                     <input type="submit" name="enviarFormulario" value="↪ Siguiente" id="enviarFormulario">
                 </div>
+                <div class="errores">
+                    <?php
+                    if (!empty($_GET["errores"])){
+                        echo $_GET["errores"];
+                    }
+                    ?>
+                </div>
         </div>
 
-        <div class="errores">
-            <?php
-            if (!empty($_GET["errores"])){
-                echo $_GET["errores"];
-            }
-            ?>
-        </div>
+
 
     </form>
 </body>
