@@ -29,16 +29,16 @@
                 <label for="relacion">Parentesco con el Contacto:</label>
                 <select name="relacion" id="relacion">
                     <option></option>
-<!--                    --><?php
-//                    $link=conectarBD(); //Ejecutas la funicon conectarBD().
-//                    $consulta="SELECT * FROM parentesco"; //Se guarda en una variable consulta.
-//                    $resultado=mysqli_query($link,$consulta); // Se ejecuta la consulta.
-//
-//                    while($fila=mysqli_fetch_array($resultado)){
-//                        // Registro asociado a cada campo -> ej: $fila["idEstudios"]  /  $fila["nombreNivel"]
-//                        echo "<option value='".$fila["idRelacion"]."'>".$fila["nombreRelacion"]."</option>";
-//                    }
-//                    ?>
+                    <?php
+                    $link=conectarBD(); //Ejecutas la funicon conectarBD().
+                    $consulta="SELECT * FROM parentesco"; //Se guarda en una variable consulta.
+                    $resultado=mysqli_query($link,$consulta); // Se ejecuta la consulta.
+
+                    while($fila=mysqli_fetch_array($resultado)){
+                        // Registro asociado a cada campo -> ej: $fila["idEstudios"]  /  $fila["nombreNivel"]
+                        echo "<option value='".$fila["idRelacion"]."'>".$fila["nombreRelacion"]."</option>";
+                    }
+                    ?>
                 </select>
             </div>
             <div class="enviarBoton">

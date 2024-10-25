@@ -43,17 +43,17 @@
                 <label for="uEstudio">Último Estudio Cursado:</label>
                 <select name="uEstudio" id="uEstudio">
                     <option></option>
-<!--                    --><?php
-//                    include("../modelo/conexion.php");//Invocamos el archivo que carga la BBDD.
-//                    $link=conectarBD(); //Ejecutas la funicon conectarBD().
-//                    $consulta="SELECT * FROM nivelestudios"; //Se guarda en una variable consulta.
-//                    $resultado=mysqli_query($link,$consulta); // Se ejecuta la consulta.
-//
-//                    while($fila=mysqli_fetch_array($resultado)){
-//                        // Registro asociado a cada campo -> ej: $fila["idEstudios"]  /  $fila["nombreNivel"]
-//                        echo "<option value='".$fila["idEstudios"]."'>".$fila["nombreNivel"]."</option>";
-//                    }
-//                    ?>
+                    <?php
+                    include("../modelo/conexion.php");//Invocamos el archivo que carga la BBDD.
+                    $link=conectarBD(); //Ejecutas la funicon conectarBD().
+                    $consulta="SELECT * FROM nivelestudios"; //Se guarda en una variable consulta.
+                    $resultado=mysqli_query($link,$consulta); // Se ejecuta la consulta.
+
+                    while($fila=mysqli_fetch_array($resultado)){
+                        // Registro asociado a cada campo -> ej: $fila["idEstudios"]  /  $fila["nombreNivel"]
+                        echo "<option value='".$fila["idEstudios"]."'>".$fila["nombreNivel"]."</option>";
+                    }
+                    ?>
                 </select>
             </div>
 
@@ -91,15 +91,15 @@
                     <label for="provincia">Provincia:</label>
                     <select name="provincia" id="provincia">
                         <option></option>
-<!--                        --><?php
-//                        $link=conectarBD(); //Ejecutas la funicon conectarBD().
-//                        $consulta="SELECT * FROM provincia"; //Se guarda en una variable consulta.
-//                        $resultado=mysqli_query($link,$consulta); // Se ejecuta la consulta.
-//
-//                        while($fila=mysqli_fetch_array($resultado)){
-//                            // Registro asociado a cada campo -> ej: $fila["idEstudios"]  /     $fila["nombreNivel"]
-//                            echo "<option value='".$fila["idProvincia"]."'>".$fila["nombreProvincia"]."</option>";
-//                        }
+                        <?php
+                        $link=conectarBD(); //Ejecutas la funicon conectarBD().
+                        $consulta="SELECT * FROM provincia"; //Se guarda en una variable consulta.
+                        $resultado=mysqli_query($link,$consulta); // Se ejecuta la consulta.
+
+                        while($fila=mysqli_fetch_array($resultado)){
+                            // Registro asociado a cada campo -> ej: $fila["idEstudios"]  /     $fila["nombreNivel"]
+                            echo "<option value='".$fila["idProvincia"]."'>".$fila["nombreProvincia"]."</option>";
+                        }
                         ?>
                     </select>
                 </div>
