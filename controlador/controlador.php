@@ -67,17 +67,44 @@ function validarTelefono($telefono)
         return true;
     }
 }
-function validarEdad($fechaNacimiento)
+function validarEdad($fecha)
 {
-    $fechaT=date_create($fechaNacimiento);
-    $fechaHoy=date_create();
+    global $errores;
+    $fechaN=new DateTime($fecha);
+    // Obtener la diferencia entre la fecha actual y la fecha de naicimiento
+    $diferencia=$fecha->diff($fechaN); // Metodo que calcula la diferencia entre dos fechas
 
-    return true;
+    // Obtener la edad en años
+    $edad=$diferencia->y;
+    if ($edad<18)
+    {
+        $errores[]="<p>Tienes $edad anios. La edad no puede ser menor a 18 años</p>";
+    }
 }
 
 function validarDni($dni)
 {
-    return true;
+    global $errores;
+    if (preg_match("/^[0-9]{8}$/", $dni)){
+        // Separar ka ketra del DNI
+        $numero=substr($dni,0,8);
+        $letra=strtoupper(substr($dni,-1));
+
+        // Letras de control
+        $letras_validas="TRWAGMYFPDXBNJZSQVHLCKE";
+
+        // Calcular la letra correspondiente al número¡
+        $indice=$numero%23;
+        $letras_correctas=$letras_validas[$indice];
+
+        // Verificar si la letra coincide
+        if ($letras_correctas==$letra){
+            return true;
+        }else{
+            $errores[]="<p>El DNI tiene formato invalido</p>";
+            return false; //Formato del DNI no válido.
+        }
+    }
 }
 
 function validarCpostal($cp)
