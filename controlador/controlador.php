@@ -32,6 +32,36 @@ if ($_REQUEST["origen"]==="formulario1"){
             }
             header('Location: ../vista/formulario1.php?errores='.$todosLosErrores);
         } else {
+            // Guarda los datos en $_SESSION ->
+            $_SESSION["insertarAlumno"]="insert into alumno(
+                   nombre,
+                   primerApellido,
+                   segundoApellido,
+                   dni,
+                   telefono,
+                   direccion,
+                   cp,
+                   ciudad,
+                   fechaUltimoEst,
+                   idProvincia,
+                   idEstudios,
+                   fechaNacimiento) values 
+            (
+                        '".$_REQUEST["nombre"]."',
+                        '".$_REQUEST["pApellido"]."',
+                        '".$_REQUEST["sApellido"]."',
+                        '".$_REQUEST["dni"]."',
+                        ".$_REQUEST["telefono"].",
+                        '".$_REQUEST["direccion"]."',                                 
+                        '".$_REQUEST["cp"]."',                                      
+                        '".$_REQUEST["ciudad"]."',
+                        '".$_REQUEST["fechaUltEstudio"]."',
+                        ".$_REQUEST["provincia"].",
+                        ".$_REQUEST["uEstudio"].",
+                        '".$_REQUEST["fNacimiento"]."'                                  
+            )";
+
+//            echo $_SESSION["insertarAlumno"];
             header("Location: ../vista/formulario2.php");
         }
 }
@@ -40,13 +70,45 @@ if ($_REQUEST["origen"]==="formulario2") {
     validarTexto($_REQUEST["nombreFamiliar"], "Persona Contacto");
     validarTelefono($_REQUEST["telefonoFamiliar"]);
     validarVacio($_REQUEST["relacion"], "La relacion");
+
     if (count($errores) > 0) {
         for ($i = 0; $i < count($errores); $i++) {
             $todosLosErrores .= $errores[$i];
         }
         header("Location: ../vista/confirmacion.php");
     } else {
-        header("Location: ../vista/formulario2.php?errores=$todosLosErrores");
+        require_once("../modelo/conexion.php"); //Llamamos a la conexión.
+        $link=conectarBD();
+
+        $insertarFamiliar="insert into familiar(nombreFamiliar,telefono,idRelacion) values ('".$_REQUEST["nombreFamiliar"]."',
+        '".$_REQUEST["telefonoFamiliar"]."',
+        '".$_REQUEST["relacion"]."'
+        )";
+
+        $resultado=mysqli_query($link,$insertarFamiliar); // Ejecuta la consulta.
+
+        $idFamiliar=mysqli_insert_id($link); // Recupera el Id del último link que he insertado.
+        $insertarAlumno=$_SESSION["insertarAlumno"];
+        $resultado=mysqli_query($link,$insertarAlumno);
+
+        $idAlumno=mysqli_insert_id($link);
+        $_SESSION["idRegistro"]=$idAlumno;
+
+        $idAlumno=mysqli_insert_id($link);
+        $insertarFamiliarAlumno="update alumno set idFamiliar=".$idFamiliar." where idAlumno=".$idAlumno;
+        $resultado=mysqli_query($link,$insertarFamiliarAlumno);
+
+        /* Una vez los adtos del alumno y del familiar, puedo recuperar su nombre, apellido, telefono */
+        $consultaDatosAlumno="select nombre, primerApellido, telefono from alumno where idAlumno=".$idAlumno;
+        $resultado=mysqli_query($link,$consultaDatosAlumno);
+
+        $arrayAlumno[]=mysqli_fetch_assoc($resultado);
+        foreach ($arrayAlumno as $alumno){
+            $_SESSION["nombreCompleto"]=$alumno["nombre"]." ".$alumno["primerApellido"];
+            $_SESSION["telefono"]=$alumno["telefono"];
+        }
+
+        header("Location: ../vista/confirmacion.php");
     }
 }
 
@@ -60,6 +122,7 @@ if ($_REQUEST["origen"]==="formulario2") {
 function validarTexto($texto,$variable)
 {
     global $errores;
+
     if (!is_string($texto) || empty($texto)||preg_match('/[0-9]/', $texto)){
         $errores[]="<p> $variable no puede estar vacio o contener numeros</p>";
         return false;
@@ -77,8 +140,10 @@ function validarTexto($texto,$variable)
  * En caso de estar vacío, guarda en la variable global el mensaje d error haciendo referencia a su campo.
  * Ejemplo -> La ciudad no puede estar vacío.
  */
-function validarVacio($texto,$variable){
+function validarVacio($valor,$variable)
+{
     global $errores;
+
     if (empty($valor)){
         $errores[]="<p> $variable no puede estar vacio</p>";
     }
@@ -94,6 +159,7 @@ function validarVacio($texto,$variable){
 function validarTelefono($telefono)
 {
     global $errores;
+
     if (empty($telefono)||!is_numeric($telefono)|| !preg_match("/^[6789]\d{8}$/", $telefono)) {
         $errores[] = "<p>El formato del telefono es incorrecto, debe comenzar por 6,7,8 o 9 y tener 9 digitos</p>";
     }
@@ -110,15 +176,19 @@ function validarTelefono($telefono)
 function validarEdad($fecha)
 {
     global $errores;
+
     $fechaN=new DateTime($fecha);
+    $fechaActual= new DateTime();
+
     // Obtener la diferencia entre la fecha actual y la fecha de naicimiento
-    $diferencia=$fecha->diff($fechaN); // Metodo que calcula la diferencia entre dos fechas
+    $diferencia=$fechaActual->diff($fechaN); // Metodo que calcula la diferencia entre dos fechas
 
     // Obtener la edad en años
     $edad=$diferencia->y;
+
     if ($edad<18)
     {
-        $errores[]="<p>Tienes $edad anios. La edad no puede ser menor a 18 años</p>";
+        $errores[]="<p>Tienes $edad anios. La edad no puede ser menor a 18 anios</p>";
     }
 }
 
@@ -131,8 +201,9 @@ function validarEdad($fecha)
 function validarDni($dni)
 {
     global $errores;
-    if (preg_match("/^[0-9]{8}$/", $dni)){ // Expresión regular que solo valída el formato del DNI.
-        // Separar ka ketra del DNI
+
+    if (preg_match("/^[0-9]{8}[A-Za-z]$/", $dni)){ // Expresión regular que solo valída el formato del DNI.
+        // Separar la letra del DNI
         $numero=substr($dni,0,8);
         $letra=strtoupper(substr($dni,-1));
 
@@ -162,7 +233,8 @@ function validarDni($dni)
 function validarCpostal($cp)
 {
     global $errores;
+
     if (empty($cp)||!preg_match("/^[0-9]{5}$/",$cp)) {
-        $errores[] = $errores[] = "<p>El codigo postal no puedes estar vacio y debe contener 5 numeros</p>";
+        $errores[] = "<p>El codigo postal no puedes estar vacio y debe contener 5 numeros</p>";
     }
 }

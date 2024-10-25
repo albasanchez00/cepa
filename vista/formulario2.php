@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (empty($_SESSION["insertarA"])){
+    header("location:formulario1.php?errores=No se puede confirmar, porque debe completar todos los cambios");
+    exit();
+}
+?>
 <!doctype html>
 <html lang="es">
 <head>
@@ -30,10 +37,10 @@
                 <select name="relacion" id="relacion">
                     <option></option>
                     <?php
+                    include_once("../modelo/conexion.php"); //invocamos el archivo que carga la BBDD
                     $link=conectarBD(); //Ejecutas la funicon conectarBD().
                     $consulta="SELECT * FROM parentesco"; //Se guarda en una variable consulta.
                     $resultado=mysqli_query($link,$consulta); // Se ejecuta la consulta.
-
                     while($fila=mysqli_fetch_array($resultado)){
                         // Registro asociado a cada campo -> ej: $fila["idEstudios"]  /  $fila["nombreNivel"]
                         echo "<option value='".$fila["idRelacion"]."'>".$fila["nombreRelacion"]."</option>";
@@ -42,8 +49,12 @@
                 </select>
             </div>
             <div class="enviarBoton">
-                <div class="casillaBoton"><input type="checkbox" id="casilla">Acepta la Política de <a href="https://www.aepd.es/" target="_blank">Privacidad y Protecciñon de Datos</a></div>
-                <div class="casillaBoton"><input type="submit" name="enviarFormulario" value="↪ Finalizar" disabled id="enviarFormulario2"></div>
+                <div class="casillaBoton">
+                    <input type="checkbox" id="casilla">Acepta la Política de <a href="https://www.aepd.es/" target="_blank">Privacidad y Proteccion de Datos</a>
+                </div>
+                <div class="casillaBoton">
+                    <input type="submit" name="enviarFormulario" value="↪ Finalizar" disabled id="enviarFormulario2">
+                </div>
 
                 <div class="errores">
                     <?php
@@ -55,8 +66,5 @@
             </div>
         </div>
     </form>
-
-
-
 </body>
 </html>
