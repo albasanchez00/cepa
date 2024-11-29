@@ -174,3 +174,23 @@ input[type="text"]:focus, select:focus {
     flex-direction: column;
     align-items: center;
 }
+
+.logo {
+    display: block;
+    height: 80px;
+    width: fit-content;
+
+    img {
+        height: inherit;
+        width: auto;
+    }
+}
+
+
+footer .logo img {
+    width: 200px;
+}
+
+.logo {
+    filter: invert(57%) sepia(36%) saturate(622%) hue-rotate(117deg) brightness(106%) contrast(87%);
+}
