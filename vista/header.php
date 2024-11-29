@@ -13,7 +13,7 @@
 <header>
     <a href="../index.php">
         <picture class="logo">
-            <img src="img/Logo%20CEPA.webp" alt="Logo Cepa Simienza">
+            <img src="img/logo-cepa-V.webp" alt="Logo Cepa Simienza">
         </picture>
     </a>
     <div class="boton">

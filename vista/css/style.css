@@ -18,6 +18,7 @@ body {
     --color-blanco: #fff;
 }
 
+
 h1, h2 {
     color: #333;
     text-align: center;
@@ -175,22 +176,126 @@ input[type="text"]:focus, select:focus {
     align-items: center;
 }
 
-.logo {
-    display: block;
-    height: 80px;
-    width: fit-content;
+/*******************/
+/** INICIO HEADER **/
+/*******************/
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 40px);
+    max-width: 1200px;
+    margin: 0px auto 50px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 0 0 20px 20px;
+    @media (min-width: 768px) {
+        gap: 20px;
+    }
 
-    img {
-        height: inherit;
-        width: auto;
+    .container-hamburguer {
+        @media (min-width: 768px) {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .boton {
+
+            a {
+                padding: 10px 40px
+            }
+        }
+    }
+
+    .logo {
+        display: block;
+        height: 80px;
+        width: fit-content;
+
+        img {
+            height: inherit;
+            width: auto;
+        }
+    }
+
+    a {
+        display: block;
+        width: fit-content;
+    }
+
+    ul {
+        display: flex;
+        gap: 20px;
+        height: 100%;
+
+        li {
+            height: inherit;
+
+            a {
+                display: flex;
+                align-items: center;
+                width: initial;
+                height: inherit;
+                font-size: 18px;
+                text-decoration: none;
+                &:hover {
+                    color: var(--color-verde);
+                }
+            }
+        }
+    }
+
+    .boton {
+        margin: initial;
     }
 }
 
+/*******************/
+/**   FIN HEADER  **/
+/*******************/
 
+
+
+/*****************/
+/**    FOOTER   **/
+/*****************/
 footer .logo img {
     width: 200px;
 }
 
-.logo {
-    filter: invert(57%) sepia(36%) saturate(622%) hue-rotate(117deg) brightness(106%) contrast(87%);
+footer {
+    width: calc(100% - 40px);
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding: 20px;
+    background-color: white;
+    border-radius: 20px 20px 0 0;
+
+    .width_footer {
+        width: calc(100% - 40px);
+        margin: auto;
+
+        div {
+            padding: 10px;
+        }
+
+        ul li {
+            list-style: none;
+            a{
+                text-decoration: none;
+            }
+        }
+
+        @media (min-width: 768px) {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+        }
+    }
 }
+
+/*****************/
+/** FIN FOOTER  **/
+/*****************/

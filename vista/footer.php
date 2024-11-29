@@ -4,7 +4,7 @@
         <div>
             <a href="../index.php">
                 <picture class="logo">
-                    <img src="img/Logo%20CEPA%20horizontal.webp" alt="logo-cepa">
+                    <img src="img/logo-cepa-H.webp" alt="logo-cepa">
                 </picture>
             </a>
             <ul>
