@@ -6,6 +6,18 @@ body {
     background-color: #f4f4f4;
 }
 
+:root {
+    --color-verde: #45BDA4;
+    --color-rojo: #ff0000;
+    --color-verde_oscuro: #2d7366;
+    --color-amarillo: #F9B801;
+    --color-gris: #F2F2F2;
+    --color-gris_oscuro: #787878;
+    --color-negro: #000;
+    --color-negro_letra: #222;
+    --color-blanco: #fff;
+}
+
 h1, h2 {
     color: #333;
     text-align: center;
@@ -102,11 +114,48 @@ input[type="text"]:focus, select:focus {
     text-align: center;
 }
 
-.boton{
-    padding: 15px;
-    background-color: #0078D7;
-    color: #fff;
-    cursor: pointer;
+.boton {
+    display: flex;
+    margin: auto;
+    height: fit-content;
+    max-width: 200px;
+
+    a {
+        display: block;
+        background-color: var(--color-verde);
+        border-radius: 10px;
+        border: 1px solid var(--color-verde);
+        padding: 10px 15px;
+        width: 100%;
+        text-align: center;
+        text-decoration: none;
+        color: white;
+        transition-duration: .2s;
+
+        &:hover {
+            background-color: white;
+            color: #45BDA4;
+        }
+    }
+}
+
+.button-containers {
+    max-width: 1200px;
+    padding: 0 20px;
+    margin: auto;
+
+    @media (min-width: 768px) {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    div {
+        margin: 0 auto 20px;
+        @media (min-width: 768px) {
+            margin: initial;
+        }
+    }
 }
 
 .botonDesactivado{
